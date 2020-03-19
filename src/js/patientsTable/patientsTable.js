@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { object, string } from 'prop-types';
+import { object, string, func } from 'prop-types';
 
 import './PatientsTable.scss';
 
@@ -18,8 +18,7 @@ import headersMapping from '../api/ tableHeadersMapping';
 
 class PatientsTable extends Component {
   render() {
-    const { selectedList, userLists } = this.props;
-
+    const { selectedList, userLists, onSelectPatient } = this.props;
     return (
       <div className="main-wrapper">
         <ListSwitch />
@@ -37,7 +36,7 @@ class PatientsTable extends Component {
             <TableBody>
               {Object.keys(userLists).length !== 0 &&
                 userLists[selectedList].map((patient, i) => (
-                  <TableRow hover key={i}>
+                  <TableRow hover key={i} onClick={() => onSelectPatient(patient)}>
                     {Object.values(headersMapping[selectedList]).map((parameter, num) => (
                       <TableCell key={num} align="center">
                         {patient[parameter]}
@@ -60,9 +59,16 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    onSelectPatient: patient => dispatch({ type: 'CHANGE_PATIENT', payload: patient }),
+  };
+}
+
 PatientsTable.propTypes = {
   selectedList: string,
   userLists: object,
+  onSelectPatient: func,
 };
 
-export default connect(mapStateToProps)(PatientsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(PatientsTable);

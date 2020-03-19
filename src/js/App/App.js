@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import getInfo from '../api/getInfo';
 
+import './App.scss';
+
 import PatientsTable from '../PatientsTable';
+import PatientInfo from '../PatientInfo';
 
 const URLS = {
   presentList: '/assets/data/presentList.json',
@@ -19,7 +22,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main-app">
+        <PatientInfo />
         <PatientsTable />
       </div>
     );
