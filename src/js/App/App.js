@@ -17,7 +17,6 @@ const URLS = {
 class App extends Component {
   componentDidMount = async () => {
     this.props.onGetInfo(await getInfo(URLS));
-    console.log(this.props);
   };
 
   render() {
