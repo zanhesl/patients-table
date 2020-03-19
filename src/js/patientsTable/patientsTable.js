@@ -17,8 +17,17 @@ import ListSwitch from '../ListSwitch';
 import headersMapping from '../api/ tableHeadersMapping';
 
 class PatientsTable extends Component {
+  state = {
+    selectedRow: -1,
+  };
+
+  handleClick(key, patient) {
+    this.setState({ selectedRow: key });
+    this.props.onSelectPatient(patient);
+  }
+
   render() {
-    const { selectedList, userLists, onSelectPatient } = this.props;
+    const { selectedList, userLists } = this.props;
     return (
       <div className="main-wrapper">
         <ListSwitch />
@@ -36,7 +45,12 @@ class PatientsTable extends Component {
             <TableBody>
               {Object.keys(userLists).length !== 0 &&
                 userLists[selectedList].map((patient, i) => (
-                  <TableRow hover key={i} onClick={() => onSelectPatient(patient)}>
+                  <TableRow
+                    hover
+                    key={i}
+                    selected={this.state.selectedRow === i}
+                    onClick={() => this.handleClick(i, patient)}
+                  >
                     {Object.values(headersMapping[selectedList]).map((parameter, num) => (
                       <TableCell key={num} align="center">
                         {patient[parameter]}
