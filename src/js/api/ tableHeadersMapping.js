@@ -1,5 +1,4 @@
 export default {
-  '№ ИБ': 'historyNumber',
-  ФИО: 'initials',
-  Палата: 'roomNumber',
+  presentList: { '№ ИБ': 'historyNumber', ФИО: 'initials', Палата: 'roomNumber' },
+  quittingList: { '№ ИБ': 'historyNumber', ФИО: 'initials', 'Причина выбывания': 'cause' },
 };

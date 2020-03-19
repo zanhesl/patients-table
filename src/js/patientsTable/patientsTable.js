@@ -21,32 +21,34 @@ class PatientsTable extends Component {
     const { selectedList, userLists } = this.props;
 
     return (
-      <TableContainer component={Paper} className="table-container">
+      <div className="main-wrapper">
         <ListSwitch />
-        <Table stickyHeader aria-label="Table of patients" className="main-table">
-          <TableHead>
-            <TableRow hover>
-              {Object.keys(headersMapping).map(head => (
-                <TableCell key={head} align="center">
-                  {head}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Object.keys(userLists).length !== 0 &&
-              userLists[selectedList].map((patient, i) => (
-                <TableRow hover key={i}>
-                  {Object.values(headersMapping).map((parameter, num) => (
-                    <TableCell key={num} align="center">
-                      {patient[parameter]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+        <TableContainer component={Paper} className="table-container">
+          <Table stickyHeader aria-label="Table of patients" className="main-table">
+            <TableHead>
+              <TableRow hover>
+                {Object.keys(headersMapping[selectedList]).map(head => (
+                  <TableCell key={head} align="center">
+                    {head}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(userLists).length !== 0 &&
+                userLists[selectedList].map((patient, i) => (
+                  <TableRow hover key={i}>
+                    {Object.values(headersMapping[selectedList]).map((parameter, num) => (
+                      <TableCell key={num} align="center">
+                        {patient[parameter]}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     );
   }
 }

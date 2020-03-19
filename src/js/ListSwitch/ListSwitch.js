@@ -4,27 +4,50 @@ import { string, func, object } from 'prop-types';
 
 import './ListSwitch.scss';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 class ListSwitch extends Component {
+  state = {
+    value: 0,
+  };
+
   onItemClicked = selectedOption => {
     this.props.onChangeList(selectedOption);
-    console.log(1);
+  };
+
+  a11yProps(index) {
+    return {
+      id: `action-tab-${index}`,
+      'aria-controls': `action-tabpanel-${index}`,
+    };
+  }
+
+  handleChange = (event, newValue) => {
+    this.setState({ value: newValue });
+    const newSelectedType = newValue ? 'quittingList' : 'presentList';
+    this.props.onChangeList(newSelectedType);
   };
 
   render() {
     const { userLists } = this.props;
     return (
-      <List className="main-table__navbar">
-        <ListItem button onClick={() => this.onItemClicked('presentList')}>
-          <ListItemText primary={`Присутствуют(${userLists.presentList.length})`} />
-        </ListItem>
-        <ListItem button onClick={() => this.onItemClicked('quittingList')}>
-          <ListItemText primary={`Выбывшие(${userLists.quittingList.length})`} />
-        </ListItem>
-      </List>
+      <>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="action tabs example"
+          >
+            <Tab label={`Присутствуют(${userLists.presentList.length})`} {...this.a11yProps(0)} />
+            <Tab label={`Выбывшие(${userLists.quittingList.length})`} {...this.a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+      </>
     );
   }
 }
