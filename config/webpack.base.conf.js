@@ -135,6 +135,12 @@ module.exports = {
         to: `${PATHS.assets}fonts`,
       },
     ]),
+    new CopyWebpackPlugin([
+      {
+        from: `${PATHS.src}/data`,
+        to: `${PATHS.assets}data`,
+      },
+    ]),
     new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
   ],
 };
