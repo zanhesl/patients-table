@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { array, func } from 'prop-types';
+import { func } from 'prop-types';
 import getInfo from '../api/getInfo';
+
+import PatientsTable from '../PatientsTable';
 
 const URLS = {
   presentList: '/assets/data/presentList.json',
@@ -18,8 +20,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello world!</h1>
-        <button></button>
+        <PatientsTable />
       </div>
     );
   }
@@ -27,8 +28,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    presentList: state.presentList,
-    quittingList: state.quittingList,
+    userLists: state.userLists,
   };
 }
 
@@ -39,8 +39,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 App.propTypes = {
-  presentList: array,
-  quittingList: array,
   onGetInfo: func,
 };
 

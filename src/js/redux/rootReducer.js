@@ -1,6 +1,9 @@
 const initialState = {
-  presentList: [],
-  quittingList: [],
+  userLists: {
+    presentList: [],
+    quittingList: [],
+  },
+  selectedList: 'presentList',
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -8,8 +11,12 @@ export default function rootReducer(state = initialState, action) {
     case 'GET_INFO':
       return {
         ...state,
-        presentList: action.payload.presentList,
-        quittingList: action.payload.quittingList,
+        userLists: action.payload,
+      };
+    case 'CHANGE_LIST':
+      return {
+        ...state,
+        selectedList: action.payload,
       };
     default:
       return state;
